@@ -1,7 +1,7 @@
 # GICEL for Visual Studio Code
 
 Syntax highlighting for
-[GICEL](https://github.com/cwd-k2/gomputation) (Go's Indexed Capability
+[GICEL](https://github.com/cwd-k2/gicel) (Go's Indexed Capability
 Effect Language) — a Haskell-like embedded typed effect language for Go.
 
 ## Features
@@ -40,8 +40,7 @@ Development Host.
 
 - [tree-sitter-gicel](https://github.com/cwd-k2/tree-sitter-gicel) —
   Tree-sitter grammar (Neovim, Zed, Helix, Emacs)
-- [gomputation](https://github.com/cwd-k2/gomputation) — GICEL language
-  implementation
+- [gicel](https://github.com/cwd-k2/gicel) — GICEL language implementation
 
 ## License
 
