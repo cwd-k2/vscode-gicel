@@ -1,0 +1,40 @@
+{
+  "name": "gicel",
+  "displayName": "GICEL",
+  "description": "Language support for GICEL (Go's Indexed Capability Effect Language)",
+  "version": "0.1.0",
+  "publisher": "cwd-k2",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cwd-k2/vscode-gicel.git"
+  },
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "gicel",
+        "aliases": [
+          "GICEL",
+          "gicel"
+        ],
+        "extensions": [
+          ".gicel"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "gicel",
+        "scopeName": "source.gicel",
+        "path": "./syntaxes/gicel.tmLanguage.json"
+      }
+    ]
+  }
+}

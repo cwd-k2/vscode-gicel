@@ -1,0 +1,280 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "GICEL",
+  "scopeName": "source.gicel",
+  "patterns": [
+    { "include": "#block_comment" },
+    { "include": "#line_comment" },
+    { "include": "#string" },
+    { "include": "#rune" },
+    { "include": "#import_declaration" },
+    { "include": "#data_declaration" },
+    { "include": "#type_alias_declaration" },
+    { "include": "#fixity_declaration" },
+    { "include": "#type_annotation" },
+    { "include": "#value_definition" },
+    { "include": "#forall_type" },
+    { "include": "#keyword" },
+    { "include": "#builtin_function" },
+    { "include": "#backtick_operator" },
+    { "include": "#special_operator" },
+    { "include": "#lambda" },
+    { "include": "#at_operator" },
+    { "include": "#numeric_literal" },
+    { "include": "#constructor" },
+    { "include": "#operator" },
+    { "include": "#wildcard" },
+    { "include": "#identifier" },
+    { "include": "#punctuation" }
+  ],
+  "repository": {
+    "block_comment": {
+      "name": "comment.block.gicel",
+      "begin": "\\{-",
+      "end": "-\\}",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.comment.begin.gicel" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.comment.end.gicel" }
+      },
+      "patterns": [
+        { "include": "#block_comment" }
+      ]
+    },
+
+    "line_comment": {
+      "name": "comment.line.double-dash.gicel",
+      "begin": "--",
+      "end": "$",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.comment.gicel" }
+      }
+    },
+
+    "string": {
+      "name": "string.quoted.double.gicel",
+      "begin": "\"",
+      "end": "\"",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.string.begin.gicel" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.string.end.gicel" }
+      },
+      "patterns": [
+        { "include": "#escape_sequence" }
+      ]
+    },
+
+    "rune": {
+      "patterns": [
+        {
+          "match": "(?<![a-zA-Z0-9_'])(')(\\\\[ntr\\\\\"'0])(')",
+          "captures": {
+            "1": { "name": "punctuation.definition.string.begin.gicel" },
+            "2": { "name": "constant.character.escape.gicel" },
+            "3": { "name": "punctuation.definition.string.end.gicel" }
+          },
+          "name": "string.quoted.single.gicel"
+        },
+        {
+          "match": "(?<![a-zA-Z0-9_'])(')([^'\\\\])(')",
+          "captures": {
+            "1": { "name": "punctuation.definition.string.begin.gicel" },
+            "3": { "name": "punctuation.definition.string.end.gicel" }
+          },
+          "name": "string.quoted.single.gicel"
+        }
+      ]
+    },
+
+    "escape_sequence": {
+      "name": "constant.character.escape.gicel",
+      "match": "\\\\[ntr\\\\\"'0]"
+    },
+
+    "import_declaration": {
+      "match": "\\b(import)\\b(?!')\\s+((?:[A-Z][a-zA-Z0-9_']*\\.)*[A-Z][a-zA-Z0-9_']*)",
+      "captures": {
+        "1": { "name": "keyword.control.import.gicel" },
+        "2": { "name": "entity.name.namespace.gicel" }
+      }
+    },
+
+    "data_declaration": {
+      "match": "\\b(data)\\b(?!')\\s+([A-Z][a-zA-Z0-9_']*)",
+      "captures": {
+        "1": { "name": "keyword.declaration.data.gicel" },
+        "2": { "name": "entity.name.type.gicel" }
+      }
+    },
+
+    "type_alias_declaration": {
+      "match": "\\b(type)\\b(?!')\\s+([A-Z][a-zA-Z0-9_']*)",
+      "captures": {
+        "1": { "name": "keyword.declaration.type.gicel" },
+        "2": { "name": "entity.name.type.gicel" }
+      }
+    },
+
+    "fixity_declaration": {
+      "match": "\\b(infixl|infixr|infixn)\\b(?!')\\s+([0-9]+)\\s+([!#$%&*+/<=>?^~|:.-]+|[a-z][a-zA-Z0-9_']*)",
+      "captures": {
+        "1": { "name": "keyword.declaration.fixity.gicel" },
+        "2": { "name": "constant.numeric.integer.gicel" },
+        "3": { "name": "entity.name.function.gicel" }
+      }
+    },
+
+    "type_annotation": {
+      "match": "([a-z][a-zA-Z0-9_']*|_[a-zA-Z0-9_']+|\\([!#$%&*+/<=>?^~|:.-]+\\))\\s*(::)(?![!#$%&*+/<=>?^~|:.-])",
+      "captures": {
+        "1": { "name": "entity.name.function.gicel" },
+        "2": { "name": "keyword.operator.type-annotation.gicel" }
+      }
+    },
+
+    "value_definition": {
+      "match": "([a-z][a-zA-Z0-9_']*|_[a-zA-Z0-9_']+|\\([!#$%&*+/<=>?^~|:.-]+\\))\\s*(:=)(?![!#$%&*+/<=>?^~|:.-])",
+      "captures": {
+        "1": { "name": "entity.name.function.gicel" },
+        "2": { "name": "keyword.operator.definition.gicel" }
+      }
+    },
+
+    "forall_type": {
+      "begin": "\\b(forall)\\b(?!')",
+      "beginCaptures": {
+        "1": { "name": "keyword.other.forall.gicel" }
+      },
+      "end": "(\\.)(?![!#$%&*+/<=>?^~|:.-])",
+      "endCaptures": {
+        "1": { "name": "punctuation.separator.forall.gicel" }
+      },
+      "patterns": [
+        { "include": "#block_comment" },
+        { "include": "#line_comment" },
+        { "include": "#kinded_variable" },
+        {
+          "match": "[A-Z][a-zA-Z0-9_']*",
+          "name": "storage.type.gicel"
+        },
+        {
+          "match": "[a-z][a-zA-Z0-9_']*",
+          "name": "storage.type.variable.gicel"
+        }
+      ]
+    },
+
+    "kinded_variable": {
+      "begin": "(\\()\\s*([a-z][a-zA-Z0-9_']*)\\s*(:)",
+      "beginCaptures": {
+        "1": { "name": "punctuation.bracket.begin.gicel" },
+        "2": { "name": "storage.type.variable.gicel" },
+        "3": { "name": "keyword.operator.kind-annotation.gicel" }
+      },
+      "end": "(\\))",
+      "endCaptures": {
+        "1": { "name": "punctuation.bracket.end.gicel" }
+      },
+      "patterns": [
+        { "match": "->", "name": "keyword.operator.arrow.gicel" },
+        { "match": "[A-Z][a-zA-Z0-9_']*", "name": "storage.type.gicel" },
+        { "match": "[a-z][a-zA-Z0-9_']*", "name": "storage.type.variable.gicel" }
+      ]
+    },
+
+    "keyword": {
+      "match": "\\b(case|do|class|instance)\\b(?!')",
+      "name": "keyword.control.gicel"
+    },
+
+    "builtin_function": {
+      "match": "\\b(pure|bind|thunk|force|assumption|rec|fix)\\b(?!')",
+      "name": "support.function.gicel"
+    },
+
+    "backtick_operator": {
+      "match": "`([a-z][a-zA-Z0-9_']*|_[a-zA-Z0-9_']+)`",
+      "name": "entity.name.function.infix.gicel"
+    },
+
+    "special_operator": {
+      "patterns": [
+        {
+          "match": "(?<![!#$%&*+/<=>?^~|:.-])->(?![!#$%&*+/<=>?^~|:.-])",
+          "name": "keyword.operator.arrow.gicel"
+        },
+        {
+          "match": "(?<![!#$%&*+/<=>?^~|:.-])=>(?![!#$%&*+/<=>?^~|:.-])",
+          "name": "keyword.operator.fat-arrow.gicel"
+        },
+        {
+          "match": "(?<![!#$%&*+/<=>?^~|:.-])<-(?![!#$%&*+/<=>?^~|:.-])",
+          "name": "keyword.operator.bind.gicel"
+        },
+        {
+          "match": "(?<![!#$%&*+/<=>?^~|:.-])!#(?![!#$%&*+/<=>?^~|:.-])",
+          "name": "keyword.operator.projection.gicel"
+        },
+        {
+          "match": "(?<![!#$%&*+/<=>?^~|:.-])::(?![!#$%&*+/<=>?^~|:.-])",
+          "name": "keyword.operator.type-annotation.gicel"
+        },
+        {
+          "match": "(?<![!#$%&*+/<=>?^~|:.-]):=(?![!#$%&*+/<=>?^~|:.-])",
+          "name": "keyword.operator.definition.gicel"
+        }
+      ]
+    },
+
+    "lambda": {
+      "match": "\\\\",
+      "name": "keyword.operator.lambda.gicel"
+    },
+
+    "at_operator": {
+      "match": "@",
+      "name": "keyword.operator.type-application.gicel"
+    },
+
+    "numeric_literal": {
+      "match": "\\b[0-9]+\\b",
+      "name": "constant.numeric.integer.gicel"
+    },
+
+    "constructor": {
+      "match": "\\b[A-Z][a-zA-Z0-9_']*",
+      "name": "entity.name.tag.gicel"
+    },
+
+    "operator": {
+      "match": "[!#$%&*+/<=>?^~|:.-]+",
+      "name": "keyword.operator.gicel"
+    },
+
+    "wildcard": {
+      "match": "\\b_\\b(?!')",
+      "name": "variable.language.wildcard.gicel"
+    },
+
+    "identifier": {
+      "match": "\\b(?:[a-z][a-zA-Z0-9_']*|_[a-zA-Z0-9_']+)",
+      "name": "variable.other.gicel"
+    },
+
+    "punctuation": {
+      "patterns": [
+        {
+          "match": "[()\\[\\]{}]",
+          "name": "punctuation.bracket.gicel"
+        },
+        {
+          "match": "[,;]",
+          "name": "punctuation.separator.gicel"
+        }
+      ]
+    }
+  }
+}
