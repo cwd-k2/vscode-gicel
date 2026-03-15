@@ -20,6 +20,8 @@
     { "include": "#special_operator" },
     { "include": "#lambda" },
     { "include": "#at_operator" },
+    { "include": "#gadt_constructor" },
+    { "include": "#record_field" },
     { "include": "#numeric_literal" },
     { "include": "#constructor" },
     { "include": "#operator" },
@@ -128,7 +130,7 @@
     },
 
     "type_annotation": {
-      "match": "([a-z][a-zA-Z0-9_']*|_[a-zA-Z0-9_']+|\\([!#$%&*+/<=>?^~|:.-]+\\))\\s*(::)(?![!#$%&*+/<=>?^~|:.-])",
+      "match": "(?<!\\()([a-z][a-zA-Z0-9_']*|_[a-zA-Z0-9_']+|\\([!#$%&*+/<=>?^~|:.-]+\\))\\s*(::)(?![!#$%&*+/<=>?^~|:.-])",
       "captures": {
         "1": { "name": "entity.name.function.gicel" },
         "2": { "name": "keyword.operator.type-annotation.gicel" }
@@ -237,6 +239,22 @@
     "at_operator": {
       "match": "@",
       "name": "keyword.operator.type-application.gicel"
+    },
+
+    "gadt_constructor": {
+      "match": "([A-Z][a-zA-Z0-9_']*)\\s*(::)(?![!#$%&*+/<=>?^~|:.-])",
+      "captures": {
+        "1": { "name": "entity.name.function.constructor.gicel" },
+        "2": { "name": "keyword.operator.type-annotation.gicel" }
+      }
+    },
+
+    "record_field": {
+      "match": "\\b([a-z][a-zA-Z0-9_']*|_[a-zA-Z0-9_']+)\\s*(=)(?![!#$%&*+/<=>?^~|:.-])",
+      "captures": {
+        "1": { "name": "variable.other.property.gicel" },
+        "2": { "name": "keyword.operator.assignment.gicel" }
+      }
     },
 
     "numeric_literal": {
