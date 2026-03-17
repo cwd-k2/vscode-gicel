@@ -22,6 +22,7 @@
     { "include": "#gadt_constructor" },
     { "include": "#record_field" },
     { "include": "#numeric_literal" },
+    { "include": "#qualified_reference" },
     { "include": "#constructor" },
     { "include": "#operator" },
     { "include": "#wildcard" },
@@ -96,11 +97,46 @@
     },
 
     "import_declaration": {
-      "match": "\\b(import)\\b(?!')\\s+((?:[A-Z][a-zA-Z0-9_']*\\.)*[A-Z][a-zA-Z0-9_']*)",
-      "captures": {
-        "1": { "name": "keyword.control.import.gicel" },
-        "2": { "name": "entity.name.namespace.gicel" }
-      }
+      "patterns": [
+        {
+          "comment": "import M as Alias",
+          "match": "\\b(import)\\b(?!')\\s+((?:[A-Z][a-zA-Z0-9_']*\\.)*[A-Z][a-zA-Z0-9_']*)\\s+(as)\\s+([A-Z][a-zA-Z0-9_']*)",
+          "captures": {
+            "1": { "name": "keyword.control.import.gicel" },
+            "2": { "name": "entity.name.namespace.gicel" },
+            "3": { "name": "keyword.control.import.gicel" },
+            "4": { "name": "entity.name.namespace.gicel" }
+          }
+        },
+        {
+          "comment": "import M (...) — selective import (begin/end for inner highlighting)",
+          "begin": "\\b(import)\\b(?!')\\s+((?:[A-Z][a-zA-Z0-9_']*\\.)*[A-Z][a-zA-Z0-9_']*)\\s*(\\()",
+          "beginCaptures": {
+            "1": { "name": "keyword.control.import.gicel" },
+            "2": { "name": "entity.name.namespace.gicel" },
+            "3": { "name": "punctuation.bracket.begin.gicel" }
+          },
+          "end": "(\\))",
+          "endCaptures": {
+            "1": { "name": "punctuation.bracket.end.gicel" }
+          },
+          "patterns": [
+            { "match": "\\.\\.", "name": "keyword.operator.wildcard.gicel" },
+            { "match": "[A-Z][a-zA-Z0-9_']*", "name": "entity.name.type.gicel" },
+            { "match": "[a-z][a-zA-Z0-9_']*", "name": "entity.name.function.gicel" },
+            { "match": "[!#$%&*+\\-/<=>?^~|.]+", "name": "keyword.operator.gicel" },
+            { "match": "[,()]", "name": "punctuation.separator.gicel" }
+          ]
+        },
+        {
+          "comment": "import M — open import",
+          "match": "\\b(import)\\b(?!')\\s+((?:[A-Z][a-zA-Z0-9_']*\\.)*[A-Z][a-zA-Z0-9_']*)",
+          "captures": {
+            "1": { "name": "keyword.control.import.gicel" },
+            "2": { "name": "entity.name.namespace.gicel" }
+          }
+        }
+      ]
     },
 
     "data_declaration": {
@@ -239,6 +275,29 @@
     "numeric_literal": {
       "match": "\\b[0-9]+\\b",
       "name": "constant.numeric.integer.gicel"
+    },
+
+    "qualified_reference": {
+      "patterns": [
+        {
+          "comment": "M.lower — qualified variable (adjacency: no spaces around dot)",
+          "match": "\\b([A-Z][a-zA-Z0-9_']*)(\\.)([a-z][a-zA-Z0-9_']*)",
+          "captures": {
+            "1": { "name": "entity.name.namespace.gicel" },
+            "2": { "name": "punctuation.accessor.gicel" },
+            "3": { "name": "variable.other.gicel" }
+          }
+        },
+        {
+          "comment": "M.Upper — qualified constructor/type (adjacency: no spaces around dot)",
+          "match": "\\b([A-Z][a-zA-Z0-9_']*)(\\.)([A-Z][a-zA-Z0-9_']*)",
+          "captures": {
+            "1": { "name": "entity.name.namespace.gicel" },
+            "2": { "name": "punctuation.accessor.gicel" },
+            "3": { "name": "entity.name.tag.gicel" }
+          }
+        }
+      ]
     },
 
     "constructor": {
