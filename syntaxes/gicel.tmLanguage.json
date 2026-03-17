@@ -217,7 +217,7 @@
           "name": "keyword.operator.bind.gicel"
         },
         {
-          "match": "(?<![!#$%&*+/<=>?^~|:.-])!#(?![!#$%&*+/<=>?^~|:.-])",
+          "match": "\\.#(?![!#$%&*+/<=>?^~|:.-])",
           "name": "keyword.operator.projection.gicel"
         },
         {
