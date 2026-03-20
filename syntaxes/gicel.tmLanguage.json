@@ -273,8 +273,18 @@
     },
 
     "numeric_literal": {
-      "match": "\\b[0-9]+\\b",
-      "name": "constant.numeric.integer.gicel"
+      "patterns": [
+        {
+          "comment": "Double literal: decimal point and/or exponent, with optional underscore separators",
+          "match": "\\b[0-9](_?[0-9])*\\.[0-9](_?[0-9])*([eE][+-]?[0-9](_?[0-9])*)?\\b|\\b[0-9](_?[0-9])*[eE][+-]?[0-9](_?[0-9])*\\b",
+          "name": "constant.numeric.float.gicel"
+        },
+        {
+          "comment": "Integer literal with optional underscore separators",
+          "match": "\\b[0-9](_?[0-9])*\\b",
+          "name": "constant.numeric.integer.gicel"
+        }
+      ]
     },
 
     "qualified_reference": {
