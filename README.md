@@ -7,7 +7,7 @@ Effect Language) — a Haskell-like embedded typed effect language for Go.
 ## Features
 
 - Syntax highlighting via TextMate grammar
-- All 9 keywords: `case`, `do`, `data`, `type`, `impl`, `import`,
+- All 9 keywords: `case`, `do`, `form`, `type`, `impl`, `import`,
   `infixl`, `infixr`, `infixn`
 - Built-in functions: `pure`, `bind`, `thunk`, `force`, `assumption`,
   `rec`, `fix`
