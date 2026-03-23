@@ -10,6 +10,7 @@
     { "include": "#import_declaration" },
     { "include": "#data_declaration" },
     { "include": "#type_alias_declaration" },
+    { "include": "#impl_declaration" },
     { "include": "#fixity_declaration" },
     { "include": "#type_annotation" },
     { "include": "#value_definition" },
@@ -155,6 +156,28 @@
       }
     },
 
+    "impl_declaration": {
+      "patterns": [
+        {
+          "comment": "impl _name :: ... — private named instance",
+          "match": "\\b(impl)\\b(?!')\\s+(_[a-zA-Z0-9_']+)\\s*(::)(?![!#$%&*+/<=>?^~|:.-])",
+          "captures": {
+            "1": { "name": "keyword.declaration.impl.gicel" },
+            "2": { "name": "entity.name.function.gicel" },
+            "3": { "name": "keyword.operator.type-annotation.gicel" }
+          }
+        },
+        {
+          "comment": "impl ClassName — instance declaration",
+          "match": "\\b(impl)\\b(?!')\\s+([A-Z][a-zA-Z0-9_']*)",
+          "captures": {
+            "1": { "name": "keyword.declaration.impl.gicel" },
+            "2": { "name": "entity.name.type.gicel" }
+          }
+        }
+      ]
+    },
+
     "fixity_declaration": {
       "match": "\\b(infixl|infixr|infixn)\\b(?!')\\s+([0-9]+)\\s+([!#$%&*+/<=>?^~|:.-]+|[a-z][a-zA-Z0-9_']*)",
       "captures": {
@@ -199,7 +222,7 @@
     },
 
     "keyword": {
-      "match": "\\b(case|do|class|instance)\\b(?!')",
+      "match": "\\b(case|do|impl)\\b(?!')",
       "name": "keyword.control.gicel"
     },
 

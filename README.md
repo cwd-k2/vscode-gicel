@@ -7,15 +7,16 @@ Effect Language) — a Haskell-like embedded typed effect language for Go.
 ## Features
 
 - Syntax highlighting via TextMate grammar
-- All 11 keywords: `case`, `do`, `data`, `type`, `forall`, `class`,
-  `instance`, `import`, `infixl`, `infixr`, `infixn`
+- All 9 keywords: `case`, `do`, `data`, `type`, `impl`, `import`,
+  `infixl`, `infixr`, `infixn`
 - Built-in functions: `pure`, `bind`, `thunk`, `force`, `assumption`,
   `rec`, `fix`
 - Type constructors, data constructors, module paths
-- Type variables in `forall` scopes (including kinded variables
-  `(a : Type -> Type)`)
+- Type variables in quantifier scopes `\a.` (including kinded variables
+  `\(a : Type -> Type).`)
 - Function names in type annotations (`::`) and definitions (`:=`)
-- Special operators: `->`, `=>`, `<-`, `!#`, `@`, `\`
+- Special operators: `->`, `=>` (case alternatives, evidence injection),
+  `<-`, `.#`, `@` (type application, grade annotation), `\`
 - String, rune, and integer literals with escape sequences
 - Line comments (`--`) and nestable block comments (`{- ... -}`)
 - Bracket pairing, auto-closing, and indentation support
