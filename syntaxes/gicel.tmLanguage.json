@@ -141,7 +141,7 @@
     },
 
     "form_declaration": {
-      "match": "\\b(data)\\b(?!')\\s+([A-Z][a-zA-Z0-9_']*)",
+      "match": "\\b(form)\\b(?!')\\s+([A-Z][a-zA-Z0-9_']*)",
       "captures": {
         "1": { "name": "keyword.declaration.data.gicel" },
         "2": { "name": "entity.name.type.gicel" }
@@ -222,7 +222,7 @@
     },
 
     "keyword": {
-      "match": "\\b(case|do|impl)\\b(?!')",
+      "match": "\\b(case|do|if|then|else)\\b(?!')",
       "name": "keyword.control.gicel"
     },
 
