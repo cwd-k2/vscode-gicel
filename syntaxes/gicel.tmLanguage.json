@@ -19,6 +19,7 @@
     { "include": "#backtick_operator" },
     { "include": "#special_operator" },
     { "include": "#lambda" },
+    { "include": "#label_literal" },
     { "include": "#at_operator" },
     { "include": "#gadt_constructor" },
     { "include": "#record_field" },
@@ -272,6 +273,11 @@
     "lambda": {
       "match": "\\\\",
       "name": "keyword.operator.lambda.gicel"
+    },
+
+    "label_literal": {
+      "match": "#[a-z_][a-zA-Z0-9_']*",
+      "name": "entity.name.label.gicel"
     },
 
     "at_operator": {
