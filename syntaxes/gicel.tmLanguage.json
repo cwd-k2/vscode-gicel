@@ -244,6 +244,10 @@
           "name": "keyword.operator.arrow.gicel"
         },
         {
+          "match": "(?<![!#$%&*+/<=>?^~|:.-])-\\|(?![!#$%&*+/<=>?^~|:.-])",
+          "name": "keyword.operator.dashpipe.gicel"
+        },
+        {
           "match": "(?<![!#$%&*+/<=>?^~|:.-])=>(?![!#$%&*+/<=>?^~|:.-])",
           "name": "keyword.operator.fat-arrow.gicel"
         },
